@@ -1,19 +1,7 @@
 {
-  "posts": [
-    {
-      "id": 1,
-      "title": "json-server",
-      "author": "typicode"
-    }
-  ],
-  "comments": [
-    {
-      "id": 1,
-      "body": "some comment",
-      "postId": 1
-    }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+   "superheros": [
+      { "id": 1, "name": "Paul", "altName": "Saul" },
+      { "id": 2, "name": "Peter", "altName": "Simon" },
+      { "id": 3, "name": "Timotheo", "altName": "The Sage" }
+   ]
 }
