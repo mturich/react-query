@@ -1,5 +1,6 @@
-import axios from 'axios'
-import { useEffect, useState } from 'react'
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import ErrorPage from './error-page';
 
 type AsyncState = 'ideal' | 'loading' | 'succeeded' | "failed"
 type Data = { "id": number; "name": string; "altName": string }
@@ -12,26 +13,32 @@ function App() {
     const getData = async () => {
       setIsFetching('loading')
       try {
-        const data = await axios.get('http://localhost:4000/superheros')
-        if (data) {
+        const res = await axios.get('http://localhost:4000/superheros')
+        if (res.statusText === "OK") {
           setIsFetching('succeeded')
-          setData(data.data)
+          setData(res.data)
         }
       } catch (e) {
         setIsFetching('failed')
       }
     }
-    const cancelCall = getData()
-    if (isFetching === 'failed') {
-      return () => { cancelCall }
-    }
+    getData()
+
+    return () => { setIsFetching('succeeded') }
   }, [])
+
+  if (isFetching === 'failed') return <ErrorPage />
 
   return (
 
-    <div className='w-screen bg-red-500'>
+    <div className='flex items-center justify-center w-screen '>
       <div >
-        {JSON.stringify(data)}
+        {data.map(el => (
+          <div className='p-6 m-5 text-center bg-slate-100 rounded-xl '>
+            <p>{el.name}</p>
+            <p>{el.altName}</p>
+          </div>
+        ))}
       </div>
 
 
