@@ -1,15 +1,28 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
-import ErrorPage from './error-page';
+import Axios from './components/Axios.tsx';
+import Loading from './components/Loading.tsx';
+import ErrorPage from './components/error-page.tsx';
 import './index.css';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: '/axios',
+        element: <Axios />
+      },
+      {
+        path: '/axios',
+        loader: () => <Loading />,
+        element: <Axios />
+      },
+    ]
   },
 ]);
 

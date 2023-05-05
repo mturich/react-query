@@ -1,4 +1,4 @@
-import { isRouteErrorResponse, useRouteError } from "react-router-dom";
+import { Link, isRouteErrorResponse, useRouteError } from "react-router-dom";
 
 const ErrorPage = () => {
 	const error = useRouteError() as Error;
@@ -13,7 +13,7 @@ const ErrorPage = () => {
 		errorMessage = error;
 	} else {
 		console.error(error);
-		errorMessage = 'Unknown error';
+		errorMessage = 'An unknown error occurred';
 	}
 
 	return (
@@ -23,6 +23,8 @@ const ErrorPage = () => {
 			<p className='text-slate-400'>
 				<i>{errorMessage}</i>
 			</p>
+
+			<button className="px-5 py-1.5 rounded-2xl hover:underline bg-slate-100"><Link to={'/'} > Home</Link></button>
 		</div>
 	);
 }
