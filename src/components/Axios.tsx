@@ -53,8 +53,8 @@ function Axios() {
 			{data && data.map(el => (
 				<div key={el.name} className='p-6 text-center shadow-lg bg-slate-100 rounded-xl'>
 					<p>{el.name}</p>
-					<p>{el.height}</p>
-					<p>{el.mass}</p>
+					<p className='text-sm font-thin'>height: {el.height}</p>
+					<p className='text-sm font-thin'>mass: {el.mass}</p>
 				</div>
 			))}
 

@@ -3,7 +3,9 @@ import * as ReactDOM from 'react-dom/client';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import App from './App.tsx';
 import Axios from './components/Axios.tsx';
-import Loading from './components/Loading.tsx';
+import AxiosRouterLoader from './components/AxiosRouterLoader.tsx';
+import Home from './components/Home.tsx';
+import ReactQuery from './components/ReactQuery.tsx';
 import ErrorPage from './components/error-page.tsx';
 import './index.css';
 
@@ -14,13 +16,21 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
+        path: '/',
+        element: <Home />
+      },
+      {
         path: '/axios',
         element: <Axios />
       },
       {
-        path: '/axios',
-        loader: () => <Loading />,
-        element: <Axios />
+        path: '/axiosLoader',
+        loader: () => { return null },
+        element: <AxiosRouterLoader />
+      },
+      {
+        path: '/reactQuery',
+        element: <ReactQuery />
       },
     ]
   },
