@@ -15,6 +15,11 @@ module.exports = {
       ecmaVersion: 'latest',
       sourceType: 'module',
    },
-   plugins: ['react', '@typescript-eslint', 'prettier'],
+   plugins: [
+      'react',
+      '@typescript-eslint',
+      'plugin:@tanstack/eslint-plugin-query/recommended',
+      'prettier',
+   ],
    rules: {},
 }

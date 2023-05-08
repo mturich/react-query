@@ -12,7 +12,7 @@ import ReactQuery from './pages/ReactQuery.tsx'
 
 export const loader = async () => {
    await new Promise(resolve => setTimeout(resolve, 1000))
-   return axios.get<Data[]>('http://localhost:4001/starwars')
+   return await axios.get<Data[]>('http://localhost:4001/starwars')
 }
 
 const router = createBrowserRouter([
