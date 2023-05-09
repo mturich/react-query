@@ -1,22 +1,12 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import z from 'zod'
 import Card from '../components/Card'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
+import { AsyncState, Data, Schema } from '../types/LoaderData'
+
 // ----------------------------------------------------------------------
 
-type AsyncState = 'ideal' | 'loading' | 'succeeded' | 'failed'
-
-const schema = z.array(
-   z.object({
-      name: z.string(),
-      height: z.string().transform(string => Number(string)),
-      mass: z.string().transform(string => Number(string)),
-   })
-)
-
-export type Data = z.infer<typeof schema>[0]
 // ----------------------------------------------------------------------
 
 function Axios() {
@@ -34,7 +24,7 @@ function Axios() {
                signal: controller.signal,
             })
             if (res.statusText === 'OK') {
-               const parsed = schema.parse(res.data)
+               const parsed = Schema.parse(res.data)
                setIsFetching('succeeded')
                setData(parsed)
             }
@@ -57,8 +47,13 @@ function Axios() {
 
    return (
       <>
-         <div className='m-4 grid grid-cols-autofit-200 gap-4'>
-            {data && data.map(item => <Card key={item.name} item={item} />)}
+         <div className='grid grid-cols-autofit-200 gap-4'>
+            {data &&
+               data.map(item => (
+                  <Card>
+                     <Person item={item} />
+                  </Card>
+               ))}
          </div>
       </>
    )

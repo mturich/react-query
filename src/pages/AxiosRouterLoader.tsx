@@ -1,5 +1,6 @@
 import { useLoaderData } from 'react-router-dom'
 import Card from '../components/Card'
+import Person from '../components/Person'
 import { loader } from '../main'
 import { LoaderData } from '../types/LoaderData'
 
@@ -8,8 +9,13 @@ export default function AxiosRouterLoader() {
 
    return (
       <>
-         <div className='m-4 grid grid-cols-autofit-200 gap-4'>
-            {data && data.map(item => <Card key={item.name} item={item} />)}
+         <div className='grid grid-cols-autofit-200 gap-4'>
+            {data &&
+               data.map(item => (
+                  <Card>
+                     <Person item={item} />
+                  </Card>
+               ))}
          </div>
       </>
    )

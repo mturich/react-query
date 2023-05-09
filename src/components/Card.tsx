@@ -1,11 +1,11 @@
-import { Data } from "../pages/Axios";
+type Props = {
+   children: React.ReactNode
+}
 
-export default function Card({ item }: { item: Data }) {
-	return (
-		<div className='p-6 text-center shadow-lg bg-slate-100 rounded-xl'>
-			<p>{item.name}</p>
-			<p className='text-sm font-thin'>height: {item.height}</p>
-			<p className='text-sm font-thin'>mass: {item.mass}</p>
-		</div>
-	)
+export default function Card({ children }: Props) {
+   return (
+      <div className='my-4 rounded-xl bg-slate-50 p-4 shadow-md'>
+         {children}
+      </div>
+   )
 }

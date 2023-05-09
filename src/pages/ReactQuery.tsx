@@ -8,6 +8,7 @@ import { animate, motion, stagger } from 'framer-motion'
 import Card from '../components/Card'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
+import Person from '../components/Person'
 import { loader } from '../main'
 
 const queryClient = new QueryClient()
@@ -49,7 +50,7 @@ function App() {
    }
 
    return (
-      <div className='m-4'>
+      <div>
          <motion.ul
             initial='hidden'
             animate='visible'
@@ -58,7 +59,9 @@ function App() {
             {isSuccess &&
                data.data.map(item => (
                   <motion.li variants={motionItem} key={item.name}>
-                     <Card item={item} />
+                     <Card>
+                        <Person item={item} />
+                     </Card>
                   </motion.li>
                ))}
          </motion.ul>
