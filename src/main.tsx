@@ -11,7 +11,7 @@ import Home from './pages/Home.tsx'
 import ReactQuery from './pages/ReactQuery.tsx'
 
 export const loader = async () => {
-   await new Promise(resolve => setTimeout(resolve, 1000))
+   await new Promise(resolve => setTimeout(resolve, 100))
    return await axios.get<Data[]>('http://localhost:4001/starwars')
 }
 

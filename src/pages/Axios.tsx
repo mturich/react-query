@@ -29,7 +29,7 @@ function Axios() {
       const getData = async () => {
          setIsFetching('loading')
          try {
-            await new Promise(resolve => setTimeout(resolve, 1000))
+            await new Promise(resolve => setTimeout(resolve, 100))
             const res = await axios.get('http://localhost:4001/starwars', {
                signal: controller.signal,
             })
@@ -50,13 +50,17 @@ function Axios() {
       }
    }, [])
 
-   if (isFetching === 'loading') return <Loading />
+   //localhost:5174/
+
+   http: if (isFetching === 'loading') return <Loading />
    if (isFetching === 'failed') return <ErrorPage />
 
    return (
-      <div className='m-4 grid grid-cols-autofit-200 gap-4'>
-         {data && data.map(item => <Card key={item.name} item={item} />)}
-      </div>
+      <>
+         <div className='m-4 grid grid-cols-autofit-200 gap-4'>
+            {data && data.map(item => <Card key={item.name} item={item} />)}
+         </div>
+      </>
    )
 }
 

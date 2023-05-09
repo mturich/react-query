@@ -4,6 +4,7 @@ import {
    useQuery,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
+import { animate, motion, stagger } from 'framer-motion'
 import Card from '../components/Card'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
@@ -29,10 +30,38 @@ function App() {
    if (isError) return <ErrorPage />
    if (isLoading) return <Loading />
 
+   const list = {
+      visible: {
+         opacity: 1,
+         transition: {
+            when: 'beforeChildren',
+            staggerChildren: 0.2,
+            damping: 10,
+            stiffness: 10,
+         },
+      },
+      hidden: { opacity: 0 },
+   }
+
+   const motionItem = {
+      visible: { opacity: 1, x: 0 },
+      hidden: { opacity: 0, x: -10 },
+   }
+
    return (
-      <div className='m-4 grid grid-cols-autofit-200 gap-4'>
-         {isSuccess &&
-            data.data.map(item => <Card key={item.name} item={item} />)}
+      <div className='m-4'>
+         <motion.ul
+            initial='hidden'
+            animate='visible'
+            variants={list}
+            className='grid grid-cols-autofit-200 gap-4'>
+            {isSuccess &&
+               data.data.map(item => (
+                  <motion.li variants={motionItem} key={item.name}>
+                     <Card item={item} />
+                  </motion.li>
+               ))}
+         </motion.ul>
       </div>
    )
 }

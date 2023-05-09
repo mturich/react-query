@@ -7,8 +7,10 @@ export default function AxiosRouterLoader() {
    const { data } = useLoaderData() as LoaderData<typeof loader>
 
    return (
-      <div className='m-4 grid grid-cols-autofit-200 gap-4'>
-         {data && data.map(item => <Card key={item.name} item={item} />)}
-      </div>
+      <>
+         <div className='m-4 grid grid-cols-autofit-200 gap-4'>
+            {data && data.map(item => <Card key={item.name} item={item} />)}
+         </div>
+      </>
    )
 }
