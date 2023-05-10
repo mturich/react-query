@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import Card from '../components/Card'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
+import Person from '../components/Person'
 import { AsyncState, Data, Schema } from '../types/LoaderData'
 
 // ----------------------------------------------------------------------

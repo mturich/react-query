@@ -19,9 +19,9 @@
     "strict": true,
     "pretty": true,
     "noUnusedLocals": true,
-    "noImplicitAny": true,
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true,
+    "forceConsistentCasingInFileNames": true
   },
   "include": [
     "src",
