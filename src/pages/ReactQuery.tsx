@@ -11,18 +11,18 @@ import Loading from '../components/Loading'
 import Person from '../components/Person'
 import { loader } from '../main'
 
-const queryClient = new QueryClient()
+// const queryClient = new ReactQuery()
 
 export default function ReactQuery() {
-   return (
-      <QueryClientProvider client={queryClient}>
-         <App />
-         <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
-   )
-}
+   //    return (
+   //       <QueryClientProvider client={queryClient}>
+   //          <App />
+   //          <ReactQueryDevtools initialIsOpen={false} />
+   //       </QueryClientProvider>
+   //    )
+   // }
 
-function App() {
+   // function App() {
    const { isLoading, isError, isSuccess, data } = useQuery({
       queryKey: ['starwars'],
       queryFn: loader,

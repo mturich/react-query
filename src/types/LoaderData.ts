@@ -10,14 +10,13 @@ export type LoaderData<T extends LoaderFunction> = Awaited<
 export type AsyncState = 'ideal' | 'loading' | 'succeeded' | 'failed'
 
 export const PersonSchema = z.object({
-   id: z.number().optional(),
+   id: z.number(),
    name: z.string(),
    height: z.string().transform(string => Number(string)),
    mass: z.string().transform(string => Number(string)),
 })
 
 export const DBPostSchema = z.object({
-   id: z.number().optional(),
    name: z.string(),
    height: z.string(),
    mass: z.string(),

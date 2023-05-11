@@ -1,0 +1,22 @@
+{
+   "starwars": [
+      {
+         "id": 1,
+         "name": "Luke Skywalker",
+         "height": "172",
+         "mass": "77"
+      },
+      {
+         "id": 2,
+         "name": "C-3PO",
+         "height": "167",
+         "mass": "75"
+      },
+      {
+         "id": 3,
+         "name": "Obi-Wan Kenobi",
+         "height": "182",
+         "mass": "77"
+      }
+   ]
+}

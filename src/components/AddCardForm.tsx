@@ -1,7 +1,8 @@
 import axios from 'axios'
 import React from 'react'
+import { queryClient } from '../App'
 import { getFieldError } from '../helper.ts/helper'
-import { DBPostSchema, Data, PersonSchema } from '../types/LoaderData'
+import { DBPostSchema, Data } from '../types/LoaderData'
 import Card from './Card'
 import { Input } from './Input'
 
@@ -10,7 +11,6 @@ const FIELD_NAMES: FieldNames[] = ['name', 'height', 'mass']
 
 export default function AddCardForm() {
    const [wasSubmitted, setWasSubmitted] = React.useState(false)
-   const [formIsValid, setFormIsValid] = React.useState(false)
 
    async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
       event.preventDefault()
@@ -32,16 +32,12 @@ export default function AddCardForm() {
             //    headers: { 'Content-Type': 'application/json; charset=utf-8' },
             //    body: JSON.stringify(fieldValues),
             // })
-            const res = await axios.post(
-               'http://localhost:4001/starwars',
-               parsed.data
-            )
-            // queryClient.invalidateQueries({ queryKey: [queryKeys.key] })
+            await axios.post('http://localhost:4001/starwars', parsed.data)
+            queryClient.invalidateQueries({ queryKey: ['starwars'] })
          } catch (e) {
             console.log(e)
          }
 
-         setFormIsValid(formIsValid)
          setWasSubmitted(true)
       }
    }
