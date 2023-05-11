@@ -4,7 +4,7 @@ import {
    useQuery,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { animate, motion, stagger } from 'framer-motion'
+import { motion } from 'framer-motion'
 import Card from '../components/Card'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
@@ -58,7 +58,7 @@ function App() {
             className='grid grid-cols-autofit-200 gap-4'>
             {isSuccess &&
                data.data.map(item => (
-                  <motion.li variants={motionItem} key={item.name}>
+                  <motion.li variants={motionItem} key={item.id}>
                      <Card>
                         <Person item={item} />
                      </Card>

@@ -12,7 +12,7 @@ export default function AxiosRouterLoader() {
          <div className=' grid grid-cols-autofit-200 gap-4'>
             {data &&
                data.map(item => (
-                  <Card>
+                  <Card key={item.id}>
                      <Person item={item} />
                   </Card>
                ))}

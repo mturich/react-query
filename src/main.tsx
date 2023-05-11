@@ -5,10 +5,11 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import App from './App.tsx'
 import ErrorPage from './components/ErrorPage.tsx'
 import './index.css'
-import Axios, { Data } from './pages/Axios.tsx'
+import Axios from './pages/Axios.tsx'
 import AxiosRouterLoader from './pages/AxiosRouterLoader.tsx'
 import Home from './pages/Home.tsx'
 import ReactQuery from './pages/ReactQuery.tsx'
+import { Data } from './types/LoaderData.ts'
 
 export const loader = async () => {
    await new Promise(resolve => setTimeout(resolve, 100))

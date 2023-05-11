@@ -2,5 +2,12 @@
   "extends": [
     "development"
   ],
-  "hints": {}
+  "hints": {
+    "axe/parsing": [
+      "default",
+      {
+        "duplicate-id-aria": "off"
+      }
+    ]
+  }
 }

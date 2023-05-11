@@ -16,9 +16,11 @@ export function Input({
    const displayErrorMessage = (wasSubmitted || touched) && errorMessage
    return (
       <div key={name} className={className}>
-         <label htmlFor={`${name}-input`}>{name}:</label>{' '}
+         <label htmlFor={`${name}-input`} className='text-lg'>
+            {name}:
+         </label>{' '}
          <input
-            className='mx-4 rounded-md border border-black'
+            className='mx-4 rounded-md border border-slate-800 pl-1 text-sm'
             id={`${name}-input`}
             name={name}
             type='text'

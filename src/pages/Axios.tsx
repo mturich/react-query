@@ -5,7 +5,6 @@ import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
 import Person from '../components/Person'
 import { AsyncState, Data, Schema } from '../types/LoaderData'
-
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
@@ -26,6 +25,7 @@ function Axios() {
             })
             if (res.statusText === 'OK') {
                const parsed = Schema.parse(res.data)
+               console.log(parsed)
                setIsFetching('succeeded')
                setData(parsed)
             }
@@ -51,7 +51,7 @@ function Axios() {
          <div className='grid grid-cols-autofit-200 gap-4'>
             {data &&
                data.map(item => (
-                  <Card>
+                  <Card key={item.id}>
                      <Person item={item} />
                   </Card>
                ))}

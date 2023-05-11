@@ -9,12 +9,20 @@ export type LoaderData<T extends LoaderFunction> = Awaited<
 
 export type AsyncState = 'ideal' | 'loading' | 'succeeded' | 'failed'
 
-export const Person = z.object({
+export const PersonSchema = z.object({
+   id: z.number().optional(),
    name: z.string(),
    height: z.string().transform(string => Number(string)),
    mass: z.string().transform(string => Number(string)),
 })
 
-export const Schema = z.array(Person)
+export const DBPostSchema = z.object({
+   id: z.number().optional(),
+   name: z.string(),
+   height: z.string(),
+   mass: z.string(),
+})
+
+export const Schema = z.array(PersonSchema)
 
 export type Data = z.infer<typeof Schema>[0]
