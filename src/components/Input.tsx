@@ -1,7 +1,7 @@
 import React, { HTMLProps } from 'react'
 import { getFieldError } from '../helper.ts/helper'
 
-export function Input({
+export default function Input({
    name,
    wasSubmitted,
    className,

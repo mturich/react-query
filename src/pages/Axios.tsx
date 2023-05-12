@@ -1,63 +1,114 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import Card from '../components/Card'
-import ErrorPage from '../components/ErrorPage'
-import Loading from '../components/Loading'
-import Person from '../components/Person'
-import { AsyncState, Data, Schema } from '../types/LoaderData'
+import { queryClient } from '../App'
+import { AddCardForm, Card, Character, ErrorPage, Loading } from '../components'
+import { getFieldError } from '../helper.ts/helper'
+import { AsyncState, DBPostSchema, Data, Schema } from '../types/LoaderData'
 // ----------------------------------------------------------------------
 
 // ----------------------------------------------------------------------
 
 function Axios() {
    const [isFetching, setIsFetching] = useState<AsyncState>('ideal')
-   const [data, setData] = useState<Data[] | undefined>()
+   const [data, setData] = useState<Data[]>()
+   const [revalidate, setRevalidate] = useState(false)
+   const [wasSubmitted, setWasSubmitted] = useState(false)
 
+   // ------------- Fetching Character with the first load -----------
    useEffect(() => {
       const controller = new AbortController()
 
       const getData = async () => {
          setIsFetching('loading')
          try {
-            await new Promise(resolve => setTimeout(resolve, 100))
             const res = await axios.get('http://localhost:4001/starwars', {
                signal: controller.signal,
             })
             if (res.statusText === 'OK') {
                const parsed = Schema.parse(res.data)
-               console.log(parsed)
                setIsFetching('succeeded')
                setData(parsed)
+               setRevalidate(false)
+               setWasSubmitted(false)
             }
          } catch (e) {
             setIsFetching('failed')
          }
       }
-      getData()
+      // triggers a revalidation after a post was pushed
+      if (revalidate === true || isFetching === 'ideal') {
+         getData()
+      }
 
       return () => {
-         //  controller.abort()
+         // controller.abort()
          setIsFetching('succeeded')
       }
-   }, [])
+   }, [isFetching, revalidate])
 
-   //localhost:5174/
+   // ------------- Adding a Character with the first load -----------
+   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault()
+      const formData = new FormData(e.currentTarget)
+      const fieldValues = Object.fromEntries(formData.entries())
+      const formIsValid = Object.values(fieldValues).every(
+         value => !getFieldError(value as string)
+      )
 
-   http: if (isFetching === 'loading') return <Loading />
+      const parsed = DBPostSchema.safeParse(fieldValues)
+      if (parsed.success === true && 'data' in parsed) {
+         try {
+            // const res = await fetch('http://localhost:4001/starwars', {
+            //    method: 'POST',
+            //    headers: { 'Content-Type': 'application/json; charset=utf-8' },
+            //    body: JSON.stringify(fieldValues),
+            // })
+            await axios.post('http://localhost:4001/starwars', parsed.data)
+            // refetching data
+            setRevalidate(true)
+            setWasSubmitted(true)
+            queryClient.invalidateQueries({ queryKey: ['starwars'] })
+         } catch (e) {
+            console.log(e)
+         }
+      }
+   }
+   // ------------- Deleting a Character with the first load -----------
+   const handleDelete = async (item: Data) => {
+      try {
+         const res = await axios.delete(
+            `http://localhost:4001/starwars/${item.id}`
+         )
+         setRevalidate(true)
+         if (res.status === 200) {
+            queryClient.invalidateQueries({ queryKey: ['starwars'] })
+         }
+      } catch (e) {
+         console.log(e)
+      }
+   }
+
+   if (isFetching === 'loading') return <Loading />
    if (isFetching === 'failed') return <ErrorPage />
 
    return (
       <>
+         <AddCardForm onSubmit={handleSubmit} wasSubmitted={wasSubmitted} />
          <div className='grid grid-cols-autofit-200 gap-4'>
             {data &&
                data.map(item => (
                   <Card key={item.id}>
-                     <Person item={item} />
+                     <Character item={item} />
+                     <button
+                        type='button'
+                        onClick={() => handleDelete(item)}
+                        className='absolute right-2 top-0'>
+                        x
+                     </button>
                   </Card>
                ))}
          </div>
       </>
    )
 }
-
 export default Axios

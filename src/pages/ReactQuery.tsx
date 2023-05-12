@@ -5,10 +5,11 @@ import {
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { motion } from 'framer-motion'
+import AddCardForm from '../components/AddCardForm'
 import Card from '../components/Card'
+import Character from '../components/Character'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
-import Person from '../components/Person'
 import { loader } from '../main'
 
 // const queryClient = new ReactQuery()
@@ -51,6 +52,7 @@ export default function ReactQuery() {
 
    return (
       <div>
+         <AddCardForm />
          <motion.ul
             initial='hidden'
             animate='visible'
@@ -60,7 +62,7 @@ export default function ReactQuery() {
                data.data.map(item => (
                   <motion.li variants={motionItem} key={item.id}>
                      <Card>
-                        <Person item={item} />
+                        <Character item={item} />
                      </Card>
                   </motion.li>
                ))}

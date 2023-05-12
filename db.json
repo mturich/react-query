@@ -3,20 +3,32 @@
     {
       "id": 1,
       "name": "Luke Skywalker",
-      "height": "172",
-      "mass": "77"
+      "height": 172,
+      "mass": 77
     },
     {
       "id": 2,
       "name": "C-3PO",
-      "height": "167",
-      "mass": "75"
+      "height": 167,
+      "mass": 75
     },
     {
       "id": 9,
       "name": "Obi-Wan Kenobi",
-      "height": "182",
-      "mass": "77"
+      "height": 182,
+      "mass": 77
+    },
+    {
+      "id": 10,
+      "name": "test",
+      "height": 3,
+      "mass": 3
+    },
+    {
+      "name": "Test",
+      "height": 33,
+      "mass": 3,
+      "id": 11
     }
   ]
 }

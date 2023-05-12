@@ -2,7 +2,6 @@ module.exports = {
    env: {
       browser: true,
       es2021: true,
-      node: true,
    },
    extends: [
       'plugin:react/recommended',
@@ -10,6 +9,7 @@ module.exports = {
       'plugin:react/jsx-runtime',
       'plugin:@typescript-eslint/recommended',
       'plugin:@tanstack/eslint-plugin-query/recommended',
+      'prettier',
    ],
    overrides: [],
    parser: '@typescript-eslint/parser',
@@ -17,6 +17,6 @@ module.exports = {
       ecmaVersion: 'latest',
       sourceType: 'module',
    },
-   plugins: ['@typescript-eslint'],
+   plugins: ['react', 'prettier'],
    rules: {},
 }
