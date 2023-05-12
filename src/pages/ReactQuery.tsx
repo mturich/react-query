@@ -12,18 +12,18 @@ import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
 import { loader } from '../main'
 
-// const queryClient = new ReactQuery()
+const queryClient = new QueryClient()
 
 export default function ReactQuery() {
-   //    return (
-   //       <QueryClientProvider client={queryClient}>
-   //          <App />
-   //          <ReactQueryDevtools initialIsOpen={false} />
-   //       </QueryClientProvider>
-   //    )
-   // }
+   return (
+      <QueryClientProvider client={queryClient}>
+         <App />
+         <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
+   )
+}
 
-   // function App() {
+function App() {
    const { isLoading, isError, isSuccess, data } = useQuery({
       queryKey: ['starwars'],
       queryFn: loader,
@@ -52,7 +52,7 @@ export default function ReactQuery() {
 
    return (
       <div>
-         <AddCardForm />
+         {/* <AddCardForm /> */}
          <motion.ul
             initial='hidden'
             animate='visible'

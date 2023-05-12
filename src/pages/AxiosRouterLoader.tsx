@@ -9,6 +9,11 @@ import { getFieldError } from '../helper.ts/helper'
 import { loader } from '../main'
 import { DBPostSchema, Data, LoaderData } from '../types/LoaderData'
 
+//-----------------------------------------------------
+
+const URL = 'http://localhost:4001/starwars_axiosRouter'
+//-----------------------------------------------------
+
 export default function AxiosRouterLoader() {
    const { data } = useLoaderData() as LoaderData<typeof loader>
    const [wasSubmitted, setWasSubmitted] = useState(false)
@@ -25,7 +30,7 @@ export default function AxiosRouterLoader() {
       const parsed = DBPostSchema.safeParse(fieldValues)
       if (parsed.success === true && 'data' in parsed) {
          try {
-            await axios.post('http://localhost:4001/starwars', parsed.data)
+            await axios.post(URL, parsed.data)
             // refetching data
             queryClient.invalidateQueries({ queryKey: ['starwars'] })
          } catch (e) {
@@ -37,9 +42,7 @@ export default function AxiosRouterLoader() {
    // ------------- Deleting a Character -----------
    const handleDelete = async (item: Data) => {
       try {
-         const res = await axios.delete(
-            `http://localhost:4001/starwars/${item.id}`
-         )
+         const res = await axios.delete(`${URL}/${item.id}`)
          if (res.status === 200) {
             queryClient.invalidateQueries({ queryKey: ['starwars'] })
          }

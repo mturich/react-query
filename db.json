@@ -1,5 +1,5 @@
 {
-  "starwars": [
+  "starwars_axios": [
     {
       "id": 1,
       "name": "Luke Skywalker",
@@ -13,22 +13,62 @@
       "mass": 75
     },
     {
-      "id": 9,
+      "id": 3,
       "name": "Obi-Wan Kenobi",
       "height": 182,
       "mass": 77
     },
     {
-      "id": 10,
-      "name": "test",
+      "name": "fdsafs",
       "height": 3,
-      "mass": 3
+      "mass": 3,
+      "id": 4
+    }
+  ],
+  "starwars_axiosRouter": [
+    {
+      "id": 1,
+      "name": "Luke Skywalker",
+      "height": 172,
+      "mass": 77
     },
     {
-      "name": "Test",
+      "id": 2,
+      "name": "C-3PO",
+      "height": 167,
+      "mass": 75
+    },
+    {
+      "id": 3,
+      "name": "Obi-Wan Kenobi",
+      "height": 182,
+      "mass": 77
+    },
+    {
+      "name": "fdas",
       "height": 33,
-      "mass": 3,
-      "id": 11
+      "mass": 33,
+      "id": 4
+    }
+  ],
+  "starwars_reactQuery": [
+    {
+      "id": 1,
+      "name": "Luke Skywalker",
+      "height": 172,
+      "mass": 77
+    },
+    {
+      "id": 2,
+      "name": "C-3PO",
+      "height": 167,
+      "mass": 75
+    },
+    {
+      "id": 3,
+      "name": "Obi-Wan Kenobi",
+      "height": 182,
+      "mass": 77
     }
   ]
 }

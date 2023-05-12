@@ -13,7 +13,7 @@ import { Data } from './types/LoaderData.ts'
 
 export const loader = async () => {
    await new Promise(resolve => setTimeout(resolve, 100))
-   return await axios.get<Data[]>('http://localhost:4001/starwars')
+   return await axios.get<Data[]>('http://localhost:4001/starwars_axiosRouter')
 }
 
 const router = createBrowserRouter([

@@ -6,6 +6,7 @@ import { getFieldError } from '../helper.ts/helper'
 import { AsyncState, DBPostSchema, Data, Schema } from '../types/LoaderData'
 // ----------------------------------------------------------------------
 
+const URL = 'http://localhost:4001/starwars_axios'
 // ----------------------------------------------------------------------
 
 function Axios() {
@@ -21,9 +22,10 @@ function Axios() {
       const getData = async () => {
          setIsFetching('loading')
          try {
-            const res = await axios.get('http://localhost:4001/starwars', {
+            const res = await axios.get(URL, {
                signal: controller.signal,
             })
+
             if (res.statusText === 'OK') {
                const parsed = Schema.parse(res.data)
                setIsFetching('succeeded')
@@ -63,7 +65,7 @@ function Axios() {
             //    headers: { 'Content-Type': 'application/json; charset=utf-8' },
             //    body: JSON.stringify(fieldValues),
             // })
-            await axios.post('http://localhost:4001/starwars', parsed.data)
+            await axios.post(URL, parsed.data)
             // refetching data
             setRevalidate(true)
             setWasSubmitted(true)
@@ -76,9 +78,7 @@ function Axios() {
    // ------------- Deleting a Character with the first load -----------
    const handleDelete = async (item: Data) => {
       try {
-         const res = await axios.delete(
-            `http://localhost:4001/starwars/${item.id}`
-         )
+         const res = await axios.delete(`${URL}/${item.id}`)
          setRevalidate(true)
          if (res.status === 200) {
             queryClient.invalidateQueries({ queryKey: ['starwars'] })
