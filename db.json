@@ -23,6 +23,12 @@
       "height": 3,
       "mass": 3,
       "id": 4
+    },
+    {
+      "name": "test",
+      "height": 3,
+      "mass": 3,
+      "id": 5
     }
   ],
   "starwars_axiosRouter": [
@@ -69,6 +75,48 @@
       "name": "Obi-Wan Kenobi",
       "height": 182,
       "mass": 77
+    },
+    {
+      "name": "fdsafdsa4",
+      "height": 3,
+      "mass": 3,
+      "id": 4
+    },
+    {
+      "name": "t",
+      "height": 3,
+      "mass": 3,
+      "id": 5
+    },
+    {
+      "name": "t",
+      "height": 33,
+      "mass": 3,
+      "id": 6
+    },
+    {
+      "name": "fdsafa",
+      "height": 3,
+      "mass": 3,
+      "id": 7
+    },
+    {
+      "name": "fdsafa",
+      "height": 3,
+      "mass": 3,
+      "id": 8
+    },
+    {
+      "name": "fdsafa",
+      "height": 3,
+      "mass": 3,
+      "id": 9
+    },
+    {
+      "name": "444",
+      "height": 34,
+      "mass": 34,
+      "id": 10
     }
   ]
 }

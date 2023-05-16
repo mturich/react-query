@@ -29,3 +29,4 @@ export const DBPostSchema = z.object({
 export const Schema = z.array(CharacterSchema)
 
 export type Data = z.infer<typeof Schema>[0]
+export type DBPostType = Omit<Data, 'id'>

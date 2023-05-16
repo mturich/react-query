@@ -1,6 +1,5 @@
 import axios from 'axios'
 import { useEffect, useState } from 'react'
-import { queryClient } from '../App'
 import { AddCardForm, Card, Character, ErrorPage, Loading } from '../components'
 import { getFieldError } from '../helper.ts/helper'
 import { AsyncState, DBPostSchema, Data, Schema } from '../types/LoaderData'
@@ -48,7 +47,7 @@ function Axios() {
       }
    }, [isFetching, revalidate])
 
-   // ------------- Adding a Character with the first load -----------
+   // ------------- Adding a Character  -----------
    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault()
       const formData = new FormData(e.currentTarget)
@@ -69,7 +68,6 @@ function Axios() {
             // refetching data
             setRevalidate(true)
             setWasSubmitted(true)
-            queryClient.invalidateQueries({ queryKey: ['starwars'] })
          } catch (e) {
             console.log(e)
          }

@@ -1,3 +1,4 @@
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import axios from 'axios'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
@@ -37,13 +38,19 @@ const router = createBrowserRouter([
          },
          {
             path: '/reactQuery',
-            element: <ReactQuery />,
+            element: (
+               <>
+                  <ReactQuery />,
+                  <ReactQueryDevtools initialIsOpen={false} />
+               </>
+            ),
          },
       ],
    },
 ])
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
+root.render(
    <React.StrictMode>
       <RouterProvider router={router} />
    </React.StrictMode>

@@ -1,7 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
-import { queryClient } from '../App'
 import AddCardForm from '../components/AddCardForm'
 import Card from '../components/Card'
 import Character from '../components/Character'
@@ -32,7 +31,6 @@ export default function AxiosRouterLoader() {
          try {
             await axios.post(URL, parsed.data)
             // refetching data
-            queryClient.invalidateQueries({ queryKey: ['starwars'] })
          } catch (e) {
             console.log(e)
          }
