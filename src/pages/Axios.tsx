@@ -76,11 +76,8 @@ function Axios() {
    // ------------- Deleting a Character with the first load -----------
    const handleDelete = async (item: Data) => {
       try {
-         const res = await axios.delete(`${URL}/${item.id}`)
+         await axios.delete(`${URL}/${item.id}`)
          setRevalidate(true)
-         if (res.status === 200) {
-            queryClient.invalidateQueries({ queryKey: ['starwars'] })
-         }
       } catch (e) {
          console.log(e)
       }

@@ -32,18 +32,18 @@ const router = createBrowserRouter([
             element: <Axios />,
          },
          {
-            path: '/axiosLoader',
-            loader: loader,
-            element: <AxiosRouterLoader />,
-         },
-         {
             path: '/reactQuery',
             element: (
                <>
-                  <ReactQuery />,
+                  <ReactQuery />
                   <ReactQueryDevtools initialIsOpen={false} />
                </>
             ),
+         },
+         {
+            path: '/axiosLoader',
+            loader: loader,
+            element: <AxiosRouterLoader />,
          },
       ],
    },

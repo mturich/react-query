@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { Data } from '../types/LoaderData'
 import Card from './Card'
 import Input from './Input'
@@ -7,13 +7,19 @@ type FieldNames = keyof Data
 const FIELD_NAMES: FieldNames[] = ['name', 'height', 'mass']
 type Props = {
    onSubmit: (e: FormEvent<HTMLFormElement>) => void
-   wasSubmitted: boolean
 }
 
-export default function AddCardForm({ onSubmit, wasSubmitted }: Props) {
+export default function AddCardForm({ onSubmit }: Props) {
+   const [wasSubmitted, setWasSubmitted] = useState(false)
+
    return (
       <Card>
-         <form noValidate onSubmit={e => onSubmit(e)}>
+         <form
+            noValidate
+            onSubmit={e => {
+               onSubmit(e)
+               setWasSubmitted(true)
+            }}>
             <div>
                {FIELD_NAMES.map(name => (
                   <Input
@@ -21,6 +27,7 @@ export default function AddCardForm({ onSubmit, wasSubmitted }: Props) {
                      key={name}
                      name={name}
                      wasSubmitted={wasSubmitted}
+                     setWasSubmitted={setWasSubmitted}
                   />
                ))}
             </div>

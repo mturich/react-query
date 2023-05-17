@@ -1,4 +1,4 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
 import { useState } from 'react'
@@ -7,8 +7,9 @@ import Card from '../components/Card'
 import Character from '../components/Character'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
-import { loader } from '../main'
-import { DBPostSchema, DBPostType, Data } from '../types/LoaderData'
+import { usePostMutation } from '../components/reactQuery/usePostMutation'
+import { Data } from '../types/LoaderData'
+import { useDeleteMutation } from '../components/reactQuery/useDeleteMutation'
 
 const URL = 'http://localhost:4001/starwars_reactQuery'
 
@@ -30,42 +31,19 @@ const motionItem = {
    hidden: { opacity: 0, x: -10 },
 }
 export default function ReactQuery() {
-   const queryClient = useQueryClient()
-   const [wasSubmitted, setWasSubmitted] = useState(false)
-
    const { isLoading, isError, isSuccess, data } = useQuery({
       queryKey: ['starwars'],
-      queryFn: async () => {
-         return await axios.get<Data[]>(URL)
-      },
+      queryFn: async () => await axios.get<Data[]>(URL),
    })
+   const handleSubmit = usePostMutation(URL)
+   const handleDelete = useDeleteMutation(URL)
 
-   const mutation = useMutation({
-      mutationFn: (newPost: DBPostType) => {
-         return axios.post(URL, newPost)
-      },
-   })
-
-   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      const formData = new FormData(e.currentTarget)
-      const fieldValues = Object.fromEntries(formData.entries())
-
-      const parsed = DBPostSchema.safeParse(fieldValues)
-      if (parsed.success === true && 'data' in parsed) {
-         mutation.mutate(parsed.data, {
-            onSettled: () => {
-               queryClient.invalidateQueries({ queryKey: ['starwars'] })
-            },
-         })
-      }
-   }
    if (isError) return <ErrorPage />
    if (isLoading) return <Loading />
 
    return (
       <div>
-         <AddCardForm onSubmit={handleSubmit} wasSubmitted={wasSubmitted} />
+         <AddCardForm onSubmit={handleSubmit} />
          <motion.ul
             initial='hidden'
             animate='visible'
@@ -76,6 +54,12 @@ export default function ReactQuery() {
                   <motion.li variants={motionItem} key={item.id}>
                      <Card>
                         <Character item={item} />
+                        <button
+                           type='button'
+                           onClick={() => handleDelete(item)}
+                           className='absolute right-2 top-0'>
+                           x
+                        </button>
                      </Card>
                   </motion.li>
                ))}
