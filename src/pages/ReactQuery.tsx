@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 import { motion } from 'framer-motion'
-import { useState } from 'react'
 import AddCardForm from '../components/AddCardForm'
 import Card from '../components/Card'
 import Character from '../components/Character'
 import ErrorPage from '../components/ErrorPage'
 import Loading from '../components/Loading'
+import { useDeleteMutation } from '../components/reactQuery/useDeleteMutation'
 import { usePostMutation } from '../components/reactQuery/usePostMutation'
 import { Data } from '../types/LoaderData'
-import { useDeleteMutation } from '../components/reactQuery/useDeleteMutation'
 
 const URL = 'http://localhost:4001/starwars_reactQuery'
 
@@ -32,7 +31,7 @@ const motionItem = {
 }
 export default function ReactQuery() {
    const { isLoading, isError, isSuccess, data } = useQuery({
-      queryKey: ['starwars'],
+      queryKey: [URL],
       queryFn: async () => await axios.get<Data[]>(URL),
    })
    const handleSubmit = usePostMutation(URL)

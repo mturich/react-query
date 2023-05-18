@@ -17,7 +17,7 @@ const usePostMutation = (URL: string) => {
       if (parsed.success === true && 'data' in parsed) {
          mutation.mutate(parsed.data, {
             onSettled: () => {
-               queryClient.invalidateQueries({ queryKey: ['starwars'] })
+               queryClient.invalidateQueries({ queryKey: [URL] })
             },
          })
       }

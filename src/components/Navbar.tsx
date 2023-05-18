@@ -20,17 +20,17 @@ export default function Navbar() {
             </li>
             <li className='hover:underline'>
                <NavLink
-                  to={`/axiosLoader`}
-                  className={({ isActive }) => (isActive ? 'font-bold' : '')}>
-                  Axios Router Loader
-               </NavLink>
-            </li>
-            <li className='hover:underline'>
-               <NavLink
                   to={'/reactQuery'}
                   className={({ isActive }) => (isActive ? 'font-bold' : '')}>
                   {' '}
                   React Query
+               </NavLink>
+            </li>
+            <li className='hover:underline'>
+               <NavLink
+                  to={`/axiosRouteLoader`}
+                  className={({ isActive }) => (isActive ? 'font-bold' : '')}>
+                  Axios Router Loader
                </NavLink>
             </li>
          </ul>

@@ -11,7 +11,7 @@ const useDeleteMutation = (URL: string) => {
    const handleDelete = (item: Data) => {
       mutation.mutate(item, {
          onSettled: () => {
-            queryClient.invalidateQueries({ queryKey: ['starwars'] })
+            queryClient.invalidateQueries({ queryKey: [URL] })
          },
       })
    }

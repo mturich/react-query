@@ -51,7 +51,7 @@
       "mass": 77
     },
     {
-      "name": "fdas",
+      "name": "test",
       "height": 33,
       "mass": 33,
       "id": 4
@@ -77,34 +77,10 @@
       "mass": 77
     },
     {
-      "name": "fdasf",
-      "height": 33,
-      "mass": 33,
+      "name": "test",
+      "height": 2,
+      "mass": 2,
       "id": 4
-    },
-    {
-      "name": "fdsa",
-      "height": 3,
-      "mass": 3,
-      "id": 5
-    },
-    {
-      "name": "fdsa",
-      "height": 3,
-      "mass": 3,
-      "id": 6
-    },
-    {
-      "name": "fdasfdsa",
-      "height": 333,
-      "mass": 33,
-      "id": 7
-    },
-    {
-      "name": "terst",
-      "height": 333,
-      "mass": 3333,
-      "id": 8
     }
   ]
 }

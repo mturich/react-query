@@ -1,5 +1,5 @@
+import { QueryClient } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import axios from 'axios'
 import * as React from 'react'
 import * as ReactDOM from 'react-dom/client'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
@@ -7,15 +7,11 @@ import App from './App.tsx'
 import ErrorPage from './components/ErrorPage.tsx'
 import './index.css'
 import Axios from './pages/Axios.tsx'
-import AxiosRouterLoader from './pages/AxiosRouterLoader.tsx'
+import AxiosRouterLoader, { loader } from './pages/AxiosRouterLoader.tsx'
 import Home from './pages/Home.tsx'
 import ReactQuery from './pages/ReactQuery.tsx'
-import { Data } from './types/LoaderData.ts'
 
-export const loader = async () => {
-   await new Promise(resolve => setTimeout(resolve, 100))
-   return await axios.get<Data[]>('http://localhost:4001/starwars_axiosRouter')
-}
+export const queryClient = new QueryClient()
 
 const router = createBrowserRouter([
    {
@@ -41,9 +37,14 @@ const router = createBrowserRouter([
             ),
          },
          {
-            path: '/axiosLoader',
-            loader: loader,
-            element: <AxiosRouterLoader />,
+            path: '/axiosRouteLoader',
+            loader: async () => await loader(queryClient),
+            element: (
+               <>
+                  <AxiosRouterLoader />
+                  <ReactQueryDevtools initialIsOpen={false} />
+               </>
+            ),
          },
       ],
    },

@@ -1,57 +1,46 @@
+import { QueryClient, useQuery } from '@tanstack/react-query'
 import axios from 'axios'
-import { useState } from 'react'
 import { useLoaderData } from 'react-router-dom'
 import AddCardForm from '../components/AddCardForm'
 import Card from '../components/Card'
 import Character from '../components/Character'
-import { getFieldError } from '../helper.ts/helper'
-import { loader } from '../main'
-import { DBPostSchema, Data, LoaderData } from '../types/LoaderData'
+import { useDeleteMutation } from '../components/reactQuery/useDeleteMutation'
+import { usePostMutation } from '../components/reactQuery/usePostMutation'
+import { Data } from '../types/LoaderData'
 
 //-----------------------------------------------------
 
-const URL = 'http://localhost:4001/starwars_axiosRouter'
+const URL_AXIOSROUTER = 'http://localhost:4001/starwars_axiosRouter'
+
+const starwarsQueryFn = async (URL: string) =>
+   await axios.get<Data[]>(URL).then(res => res.data)
+const starWarsQuery = (URL: string) => ({
+   queryKey: [URL],
+   queryFn: () => starwarsQueryFn(URL),
+})
+
+export const loader = async (queryClient: QueryClient) => {
+   const query = starWarsQuery(URL_AXIOSROUTER)
+   return await queryClient.ensureQueryData(query)
+}
+
 //-----------------------------------------------------
 
 export default function AxiosRouterLoader() {
-   const { data } = useLoaderData() as LoaderData<typeof loader>
-   const [wasSubmitted, setWasSubmitted] = useState(false)
+   const initialData = useLoaderData() as Awaited<ReturnType<typeof loader>>
 
-   // ------------- Adding a Character with the first load -----------
-   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-      e.preventDefault()
-      const formData = new FormData(e.currentTarget)
-      const fieldValues = Object.fromEntries(formData.entries())
-      const formIsValid = Object.values(fieldValues).every(
-         value => !getFieldError(value as string)
-      )
-
-      const parsed = DBPostSchema.safeParse(fieldValues)
-      if (parsed.success === true && 'data' in parsed) {
-         try {
-            await axios.post(URL, parsed.data)
-            // refetching data
-         } catch (e) {
-            console.log(e)
-         }
-         setWasSubmitted(true)
-      }
-   }
-   // ------------- Deleting a Character -----------
-   const handleDelete = async (item: Data) => {
-      try {
-         const res = await axios.delete(`${URL}/${item.id}`)
-         if (res.status === 200) {
-            queryClient.invalidateQueries({ queryKey: ['starwars'] })
-         }
-      } catch (e) {
-         console.log(e)
-      }
-   }
+   console.log('i: ', initialData)
+   const { data } = useQuery({
+      ...starWarsQuery(URL_AXIOSROUTER),
+      initialData,
+   })
+   console.log(data)
+   const handleSubmit = usePostMutation(URL_AXIOSROUTER)
+   const handleDelete = useDeleteMutation(URL_AXIOSROUTER)
 
    return (
       <>
-         <AddCardForm onSubmit={handleSubmit} wasSubmitted={wasSubmitted} />
+         <AddCardForm onSubmit={handleSubmit} />
          <div className=' grid grid-cols-autofit-200 gap-4'>
             {data &&
                data.map(item => (
